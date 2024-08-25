@@ -2,37 +2,42 @@ package org.example.Sorts;
 
 import org.example.Util.Array;
 
-public class QuickSort {
-    public void sort(Array array, int low, int high) {
+public class QuickSort<T extends Comparable<T>> {
+    // Método para ordenar el array
+    public void sort(Array<T> array, int low, int high) {
         if (low < high) {
-            /* pi es el índice de particionamiento, arr[pi] está ahora
-               en el lugar correcto */
+            // Encuentra el punto de partición
             int pi = partition(array, low, high);
 
-            // Ordenar recursivamente los elementos antes
-            // y después de la partición
+            // Ordena recursivamente las dos mitades
             sort(array, low, pi - 1);
             sort(array, pi + 1, high);
         }
     }
 
-    int partition(Array array, int low, int high) {
-        int pivot = array.getElement(high);
-        int i = (low - 1); // Índice del elemento más pequeño
+    // Método para particionar el array
+    int partition(Array<T> array, int low, int high) {
+        // Elige el último elemento como pivote
+        T pivot = array.getElement(high);
+
+        // Índice del elemento más pequeño
+        int i = (low - 1);
+
+        // Recorre el array
         for (int j = low; j < high; j++) {
-            // Si el elemento actual es más pequeño que el pivote
-            if (array.getElement(j) < pivot) {
+            // Si el elemento actual es menor que el pivote
+            if (array.getElement(j).compareTo(pivot) < 0) {
                 i++;
 
-                // Intercambiar arr[i] y arr[j]
-                int temp = array.getElement(i);
+                // Intercambia array[i] y array[j]
+                T temp = array.getElement(i);
                 array.setElement(i, array.getElement(j));
                 array.setElement(j, temp);
             }
         }
 
-        // Intercambiar arr[i+1] y arr[high] (o pivote)
-        int temp = array.getElement(i + 1);
+        // Intercambia array[i+1] y array[high] (o pivote)
+        T temp = array.getElement(i + 1);
         array.setElement(i + 1, array.getElement(high));
         array.setElement(high, temp);
 

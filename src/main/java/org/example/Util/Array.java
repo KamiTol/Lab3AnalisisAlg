@@ -1,15 +1,15 @@
 package org.example.Util;
 
-public class Array {
-    private int[] array;
+public class Array<T extends Comparable<T>> {
+    private T[] array;
     private int size;
 
     public Array(int size) {
         this.size = size;
-        this.array = new int[size];
+        this.array = (T[]) new Comparable[size];
     }
 
-    public void setElement(int index, int value) {
+    public void setElement(int index, T value) {
         if (index >= 0 && index < size) {
             array[index] = value;
         } else {
@@ -17,7 +17,7 @@ public class Array {
         }
     }
 
-    public int getElement(int index) {
+    public T getElement(int index) {
         if (index >= 0 && index < size) {
             return array[index];
         } else {
@@ -29,7 +29,7 @@ public class Array {
         return size;
     }
 
-    public int[] getArray() {
+    public T[] getArray() {
         return array;
     }
 }

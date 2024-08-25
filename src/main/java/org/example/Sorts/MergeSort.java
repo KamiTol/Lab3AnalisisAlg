@@ -2,8 +2,8 @@ package org.example.Sorts;
 
 import org.example.Util.Array;
 
-public class MergeSort {
-    public void sort(Array array, int left, int right) {
+public class MergeSort<T extends Comparable<T>> {
+    public void sort(Array<T> array, int left, int right) {
         if (left < right) {
             // Encontrar el punto medio del array
             int mid = (left + right) / 2;
@@ -17,14 +17,14 @@ public class MergeSort {
         }
     }
 
-    void merge(Array array, int left, int mid, int right) {
+    void merge(Array<T> array, int left, int mid, int right) {
         // Encontrar los tamaños de los dos subarrays para fusionar
         int n1 = mid - left + 1;
         int n2 = right - mid;
 
         /* Crear arrays temporales */
-        int L[] = new int[n1];
-        int R[] = new int[n2];
+        T L[] = (T[]) new Comparable[n1];
+        T R[] = (T[]) new Comparable[n2];
 
         /* Copiar los datos a los arrays temporales */
         for (int i = 0; i < n1; ++i)
@@ -40,7 +40,7 @@ public class MergeSort {
         // Índice inicial del subarray fusionado
         int k = left;
         while (i < n1 && j < n2) {
-            if (L[i] <= R[j]) {
+            if (L[i].compareTo(R[j]) <= 0) {
                 array.setElement(k, L[i]);
                 i++;
             } else {
